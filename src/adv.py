@@ -58,9 +58,9 @@ print(room["outside"])
 user = input("\n Options for travel are: \n\n [n] - north \n [s] - south \n [e] - east \n [w] - west \n [q] - quit \n\n In what direction would you like to travel: " )
 
 while not user == "q":
-    if player1.room == "outside":
+    if player1.current_room == "outside":
         if user == "n":
-           player1.room = "foyer"
+           player1.current_room = "foyer"
            user = ""
         if user == "s":
             print("nothing ventured nothing gained")
@@ -69,54 +69,54 @@ while not user == "q":
         if user == "w":
             print("stop stalling")
     
-    if player1.room == "foyer":
+    if player1.current_room == "foyer":
         if user == "n":
-           player1.room = "overlook"
+           player1.current_room = "overlook"
            user = ""
         if user == "s":
-           player1.room = "outside"
+           player1.current_room = "outside"
            user == ""
         if user == "e":
-           player1.room = "narrow"
+           player1.current_room = "narrow"
            user == ""
         if user == "w":
             print("to the west ye behold an yonder wall")
 
-    if player1.room == "overlook":
+    if player1.current_room == "overlook":
         if user == "n":
            print("You step off the edge and tumble to your death")
         if user == "s":
-           player1.room = "foyer"
+           player1.current_room = "foyer"
            user == ""
         if user == "e":
            print("You step confidently into the abyss")
         if user == "w":
            print("sharp rocks line the ocean under your decent but wait!! a single patch of water between the murderous spikes, you try to turn your aim towards it even as you hurl to the earth")
 
-    if player1.room == "narrow":
+    if player1.current_room == "narrow":
         if user == "n":
-           player1.room = "treasure"
+           player1.current_room = "treasure"
            user == ""
         if user == "s":
            print("you bang your head on the wall")
         if user == "e":
            print("thou knockest thine noggin")
         if user == "w":
-           player1.room = "foyer"
+           player1.current_room = "foyer"
            user == ""
 
-    if player1.room == "treasure":
+    if player1.current_room == "treasure":
         if user == "n":
            print("wall")
         if user == "s":
-           player1.room = "narrow"
+           player1.current_room = "narrow"
            user == ""
         if user == "e":
            print("another wall")
         if user == "w":
            print("still a wall")
 
-    print(f"You find yourself in the {room[player1.room]}")
+    print(f"You find yourself in the {room[player1.current_room]}")
 
     user = input("\n Options for travel are: \n\n [n] - north \n [s] - south \n [e] - east \n [w] - west \n [q] - quit \n\n In what direction would you like to travel: " )
     
