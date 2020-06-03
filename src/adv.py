@@ -1,4 +1,5 @@
 from room import Room
+from player import Player
 
 # Declare all the rooms
 
@@ -39,13 +40,84 @@ room['treasure'].s_to = room['narrow']
 
 # Make a new player object that is currently in the 'outside' room.
 
+player1 = Player("Rick Sanchz", "outside")
+# print(player1.name, player1.room)
+
 # Write a loop that:
 #
 # * Prints the current room name
 # * Prints the current description (the textwrap module might be useful here).
 # * Waits for user input and decides what to do.
-#
 # If the user enters a cardinal direction, attempt to move to the room there.
 # Print an error message if the movement isn't allowed.
 #
 # If the user enters "q", quit the game.
+
+print(room["outside"])
+
+user = input("Options for travel are: \n [n] - north \n [s] - south \n [e] - east \n [w] - west \n [q] - quit \n In what direction would you like to travel:" )
+
+while not user == "q":
+    if player1.room == "outside":
+        if user == "n":
+           player1.room = "foyer"
+           user = ""
+        if user == "s":
+            print("nothing ventured nothing gained")
+        if user == "e":
+            print("Almost...kind of I mean its 1 in 4")
+        if user == "w":
+            print("stop stalling")
+    
+    if player1.room == "foyer":
+        if user == "n":
+           player1.room = "overlook"
+           user = ""
+        if user == "s":
+           player1.room = "outside"
+           user == ""
+        if user == "e":
+           player1.room = "narrow"
+           user == ""
+        if user == "w":
+            print("foyer west")
+
+    if player1.room == "overlook":
+        if user == "n":
+           print("wrong")
+        if user == "s":
+           player1.room = "foyer"
+           user == ""
+        if user == "e":
+           print("wrong")
+        if user == "w":
+           print("wrong")
+
+    if player1.room == "narrow":
+        if user == "n":
+           player1.room = "treasure"
+           user == ""
+        if user == "s":
+           print("wrong")
+        if user == "e":
+           print("wrong")
+        if user == "w":
+           player1.room = "foyer"
+           user == ""
+
+    if player1.room == "treasure":
+        if user == "n":
+           print("wrong")
+        if user == "s":
+           player1.room = "narrow"
+           user == ""
+        if user == "e":
+           print("wrong")
+        if user == "w":
+           print("wrong")
+
+    print(f"You find yourself in the {room[player1.room]}")
+
+    user = input("Options for travel are: \n [n] - north \n [s] - south \n [e] - east \n [w] - west \n [q] - quit \n In what direction would you like to travel:" )
+    
+print("Game Ended thank you for playing")
