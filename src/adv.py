@@ -25,14 +25,14 @@ earlier adventurers. The only exit is to the south."""),
 
 # Link rooms together
 
-room['outside'].n_to = room['foyer']
-room['foyer'].s_to = room['outside']
-room['foyer'].n_to = room['overlook']
-room['foyer'].e_to = room['narrow']
-room['overlook'].s_to = room['foyer']
-room['narrow'].w_to = room['foyer']
-room['narrow'].n_to = room['treasure']
-room['treasure'].s_to = room['narrow']
+room['outside'].n_to = 'foyer'
+room['foyer'].s_to = 'outside'
+room['foyer'].n_to = 'overlook'
+room['foyer'].e_to = 'narrow'
+room['overlook'].s_to = 'foyer'
+room['narrow'].w_to = 'foyer'
+room['narrow'].n_to = 'treasure'
+room['treasure'].s_to = 'narrow'
 
 #
 # Main
@@ -61,8 +61,7 @@ user = input("\n Options for travel are: \n\n [n] - north \n [s] - south \n [e] 
 while not user == "q":
     if player1.current_room == "outside":
         if user == "n":
-            player1.current_room = "foyer"
-            # print(room[player1.current_room].n_to)
+            player1.current_room = room[player1.current_room].n_to
             user = ""
         if user == "s":
             print("nothing ventured nothing gained")
@@ -73,13 +72,13 @@ while not user == "q":
     
     if player1.current_room == "foyer":
         if user == "n":
-           player1.current_room = "overlook"
+           player1.current_room = room[player1.current_room].n_to
            user = ""
         if user == "s":
-           player1.current_room = "outside"
+           player1.current_room = room[player1.current_room].s_to
            user == ""
         if user == "e":
-           player1.current_room = "narrow"
+           player1.current_room = room[player1.current_room].e_to
            user == ""
         if user == "w":
             print("to the west ye behold an yonder wall")
@@ -88,7 +87,7 @@ while not user == "q":
         if user == "n":
            print("You step off the edge and tumble to your death")
         if user == "s":
-           player1.current_room = "foyer"
+           player1.current_room = room[player1.current_room].s_to
            user == ""
         if user == "e":
            print("You step confidently into the abyss")
@@ -97,7 +96,7 @@ while not user == "q":
 
     if player1.current_room == "narrow":
         if user == "n":
-           player1.current_room = "treasure"
+           player1.current_room = room[player1.current_room].n_to
            user == ""
         if user == "s":
            print("you bang your head on the wall")
@@ -111,7 +110,7 @@ while not user == "q":
         if user == "n":
            print("wall")
         if user == "s":
-           player1.current_room = "narrow"
+           player1.current_room = room[player1.current_room].s_to
            user == ""
         if user == "e":
            print("another wall")
