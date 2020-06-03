@@ -41,6 +41,7 @@ room['treasure'].s_to = room['narrow']
 # Make a new player object that is currently in the 'outside' room.
 
 player1 = Player("Rick Sanchz", "outside")
+# print(dir(player1))
 # print(player1.name, player1.room)
 
 # Write a loop that:
@@ -60,8 +61,9 @@ user = input("\n Options for travel are: \n\n [n] - north \n [s] - south \n [e] 
 while not user == "q":
     if player1.current_room == "outside":
         if user == "n":
-           player1.current_room = "foyer"
-           user = ""
+            player1.current_room = "foyer"
+            # print(room[player1.current_room].n_to)
+            user = ""
         if user == "s":
             print("nothing ventured nothing gained")
         if user == "e":
