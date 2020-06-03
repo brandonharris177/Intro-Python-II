@@ -55,7 +55,7 @@ player1 = Player("Rick Sanchz", "outside")
 
 print(room["outside"])
 
-user = input("Options for travel are: \n [n] - north \n [s] - south \n [e] - east \n [w] - west \n [q] - quit \n In what direction would you like to travel:" )
+user = input("\n Options for travel are: \n\n [n] - north \n [s] - south \n [e] - east \n [w] - west \n [q] - quit \n\n In what direction would you like to travel: " )
 
 while not user == "q":
     if player1.room == "outside":
@@ -80,44 +80,44 @@ while not user == "q":
            player1.room = "narrow"
            user == ""
         if user == "w":
-            print("foyer west")
+            print("to the west ye behold an yonder wall")
 
     if player1.room == "overlook":
         if user == "n":
-           print("wrong")
+           print("You step off the edge and tumble to your death")
         if user == "s":
            player1.room = "foyer"
            user == ""
         if user == "e":
-           print("wrong")
+           print("You step confidently into the abyss")
         if user == "w":
-           print("wrong")
+           print("sharp rocks line the ocean under your decent but wait!! a single patch of water between the murderous spikes, you try to turn your aim towards it even as you hurl to the earth")
 
     if player1.room == "narrow":
         if user == "n":
            player1.room = "treasure"
            user == ""
         if user == "s":
-           print("wrong")
+           print("you bang your head on the wall")
         if user == "e":
-           print("wrong")
+           print("thou knockest thine noggin")
         if user == "w":
            player1.room = "foyer"
            user == ""
 
     if player1.room == "treasure":
         if user == "n":
-           print("wrong")
+           print("wall")
         if user == "s":
            player1.room = "narrow"
            user == ""
         if user == "e":
-           print("wrong")
+           print("another wall")
         if user == "w":
-           print("wrong")
+           print("still a wall")
 
     print(f"You find yourself in the {room[player1.room]}")
 
-    user = input("Options for travel are: \n [n] - north \n [s] - south \n [e] - east \n [w] - west \n [q] - quit \n In what direction would you like to travel:" )
+    user = input("\n Options for travel are: \n\n [n] - north \n [s] - south \n [e] - east \n [w] - west \n [q] - quit \n\n In what direction would you like to travel: " )
     
 print("Game Ended thank you for playing")
