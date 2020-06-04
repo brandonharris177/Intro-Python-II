@@ -60,7 +60,7 @@ room['treasure'].s_to = room['narrow']
 # such as "take coins" or "drop sword".
 # Split the entered command and see if it has 1 or 2 words in it to determine if it's the first or second form.
 
-player = Player(room['outside'])
+player = Player(room['outside'], [])
 
 print(f"You find yourself in the {player.current_room.name} {player.current_room.description} ")
 
