@@ -1,28 +1,44 @@
+from player import Player
 from room import Room
-
-# Declare all the rooms
+from item import Item
 
 room = {
     'outside':  Room("Outside Cave Entrance",
-                     "North of you, the cave mount beckons"),
+                     "North of you, the cave mount beckons", ["rock", "stick"]),
 
     'foyer':    Room("Foyer", """Dim light filters in from the south. Dusty
-passages run north and east."""),
+passages run north and east.""", ["candle", "clock"]),
 
     'overlook': Room("Grand Overlook", """A steep cliff appears before you, falling
 into the darkness. Ahead to the north, a light flickers in
-the distance, but there is no way across the chasm."""),
+the distance, but there is no way across the chasm.""", ["telescope", "flag"]),
 
     'narrow':   Room("Narrow Passage", """The narrow passage bends here from west
-to north. The smell of gold permeates the air."""),
+to north. The smell of gold permeates the air.""", ["quill", "club"]),
 
     'treasure': Room("Treasure Chamber", """You've found the long-lost treasure
 chamber! Sadly, it has already been completely emptied by
-earlier adventurers. The only exit is to the south."""),
+earlier adventurers. The only exit is to the south.""", ["chocolate_coins", "foam_sword"]),
 }
 
+# items = {
+#     'outside':  Room("Outside Cave Entrance",
+#                      "North of you, the cave mount beckons"),
 
-# Link rooms together
+#     'foyer':    Room("Foyer", """Dim light filters in from the south. Dusty
+# passages run north and east."""),
+
+#     'overlook': Room("Grand Overlook", """A steep cliff appears before you, falling
+# into the darkness. Ahead to the north, a light flickers in
+# the distance, but there is no way across the chasm."""),
+
+#     'narrow':   Room("Narrow Passage", """The narrow passage bends here from west
+# to north. The smell of gold permeates the air."""),
+
+#     'treasure': Room("Treasure Chamber", """You've found the long-lost treasure
+# chamber! Sadly, it has already been completely emptied by
+# earlier adventurers. The only exit is to the south."""),
+# }
 
 room['outside'].n_to = room['foyer']
 room['foyer'].s_to = room['outside']
@@ -33,19 +49,50 @@ room['narrow'].w_to = room['foyer']
 room['narrow'].n_to = room['treasure']
 room['treasure'].s_to = room['narrow']
 
-#
-# Main
-#
+# Add functionality to the main loop that prints out all the items that are visible to the player when they are in that room.
 
-# Make a new player object that is currently in the 'outside' room.
+# Add a new type of sentence the parser can understand: two words.
+# Until now, the parser could just understand one sentence form:
+# verb
+# such as "n" or "q".
+# But now we want to add the form:
+# verb object
+# such as "take coins" or "drop sword".
+# Split the entered command and see if it has 1 or 2 words in it to determine if it's the first or second form.
 
-# Write a loop that:
-#
-# * Prints the current room name
-# * Prints the current description (the textwrap module might be useful here).
-# * Waits for user input and decides what to do.
-#
-# If the user enters a cardinal direction, attempt to move to the room there.
-# Print an error message if the movement isn't allowed.
-#
-# If the user enters "q", quit the game.
+player = Player("Rick Sanchz", room['outside'], [])
+
+print(f"You find yourself in the {player.current_room.name} {player.current_room.description} looking around you see {player.current_room.items}")
+
+user = input("\n Options are: \n\n [n] - north \n [s] - south \n [e] - east \n [w] - west \n [q] - quit \n [get/take (item)] - pick up item \n [drop (item)] \n [i] - list current inventory \n [l] - look around \n\n What would you like to do: " )
+
+while not user == "q":
+
+    if user in ["n", "s", "e", "w"]:
+        player.move(user)
+    elif user == "i":
+        print(player.inventory)
+    elif user == "l":
+        print(f"You look around and see")
+    elif len(user) > 2:
+        user_split = user.split(" ")
+        if user_split[0] == "get" or user_split[0] == "take":
+            if user_split[1] in player.current_room.items: 
+                player.current_room.remove_item(user_split[1])
+                player.take_item(user_split[1])
+            else:
+                print(f"{user_split[1]} is not in this room")
+        elif user_split[0] == "drop":
+            if user_split[1] in player.inventory: 
+                player.current_room.add_item(user_split[1])
+                player.drop_item(user_split[1])
+        else:
+            print("invalid command")
+    else:
+        print("invalid input")
+    
+    print(f"You find yourself in the {player.current_room.name} {player.current_room.description} looking around you see {player.current_room.items}")
+
+    user = input("\n Options are: \n\n [n] - north \n [s] - south \n [e] - east \n [w] - west \n [q] - quit \n [get/take (item)] - pick up item \n [drop (item)] \n [i] - list current inventory \n [l] - look around \n\n What would you like to do: " )
+
+print("Game Ended thank you for playing")
