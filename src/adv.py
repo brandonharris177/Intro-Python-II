@@ -30,17 +30,6 @@ room['narrow'].w_to = room['foyer']
 room['narrow'].n_to = room['treasure']
 room['treasure'].s_to = room['narrow']
 
-# Add functionality to the main loop that prints out all the items that are visible to the player when they are in that room.
-
-# Add a new type of sentence the parser can understand: two words.
-# Until now, the parser could just understand one sentence form:
-# verb
-# such as "n" or "q".
-# But now we want to add the form:
-# verb object
-# such as "take coins" or "drop sword".
-# Split the entered command and see if it has 1 or 2 words in it to determine if it's the first or second form.
-
 player = Player("Rick Sanchz", room['outside'], [])
 
 print(f"You find yourself in the {player.current_room.name} {player.current_room.description} looking around you see:")
@@ -69,6 +58,8 @@ while not user == "q":
             if user_split[1] in player.inventory: 
                 player.current_room.add_item(user_split[1])
                 player.drop_item(user_split[1])
+            else: 
+                print(f"{user_split[1]} is not in your inventory")
         else:
             print("Invalid input")
     else:
