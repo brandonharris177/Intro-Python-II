@@ -30,11 +30,9 @@ room['narrow'].w_to = room['foyer']
 room['narrow'].n_to = room['treasure']
 room['treasure'].s_to = room['narrow']
 
-player = Player("Rick Sanchz", room['outside'], [])
+username = input("Welcome Hero please input your name: ")
 
-# print(f"You find yourself in the {player.current_room.name} {player.current_room.description} looking around you see:")
-# for item in range(len(player.current_room.items)):
-#     print(f"a {player.current_room.items[item]}")
+player = Player(username, room['outside'], [])
 
 def look_around():
     print(f"You find yourself in the {player.current_room.name} {player.current_room.description}")
