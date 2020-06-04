@@ -62,19 +62,37 @@ room['treasure'].s_to = room['narrow']
 
 player = Player("Rick Sanchz", room['outside'], [])
 
-print(f"You find yourself in the {player.current_room.name} {player.current_room.description} ")
+print(f"You find yourself in the {player.current_room.name} {player.current_room.description} looking around you see {player.current_room.items}")
 
-user = input("\n Options for travel are: \n\n [n] - north \n [s] - south \n [e] - east \n [w] - west \n [q] - quit \n [get/take (item)] - pick up item \n [drop (item)] \n [i] - list current inventory \n\n In what direction would you like to travel: " )
+user = input("\n Options are: \n\n [n] - north \n [s] - south \n [e] - east \n [w] - west \n [q] - quit \n [get/take (item)] - pick up item \n [drop (item)] \n [i] - list current inventory \n [l] - look around \n\n What would you like to do: " )
 
 while not user == "q":
 
     if user in ["n", "s", "e", "w"]:
         player.move(user)
+    elif user == "i":
+        print(player.inventory)
+    elif user == "l":
+        print(f"You look around and see")
+    elif len(user) > 2:
+        user_split = user.split(" ")
+        if user_split[0] == "get" or user_split[0] == "take":
+            if user_split[1] in player.current_room.items: 
+                player.current_room.remove_item(user_split[1])
+                player.take_item(user_split[1])
+            else:
+                print(f"{user_split[1]} is not in this room")
+        elif user_split[0] == "drop":
+            if user_split[1] in player.inventory: 
+                player.current_room.add_item(user_split[1])
+                player.drop_item(user_split[1])
+        else:
+            print("invalid command")
     else:
         print("invalid input")
     
-    print(f"You find yourself in the {player.current_room.name} {player.current_room.description} ")
+    print(f"You find yourself in the {player.current_room.name} {player.current_room.description} looking around you see {player.current_room.items}")
 
-    user = input("\n Options for travel are: \n\n [n] - north \n [s] - south \n [e] - east \n [w] - west \n [q] - quit \n [get/take (item)] - pick up item \n [drop (item)] \n [i] - list current inventory \n\n In what direction would you like to travel: " )
+    user = input("\n Options are: \n\n [n] - north \n [s] - south \n [e] - east \n [w] - west \n [q] - quit \n [get/take (item)] - pick up item \n [drop (item)] \n [i] - list current inventory \n [l] - look around \n\n What would you like to do: " )
 
 print("Game Ended thank you for playing")
