@@ -1,6 +1,6 @@
+from item import Item
 from player import Player
 from room import Room
-from item import Item
 
 room = {
     'outside':  Room("Outside Cave Entrance",
@@ -19,6 +19,13 @@ to north. The smell of gold permeates the air.""", ["quill", "club"]),
     'treasure': Room("Treasure Chamber", """You've found the long-lost treasure
 chamber! Sadly, it has already been completely emptied by
 earlier adventurers. The only exit is to the south.""", ["chocolate_coins", "foam_sword"]),
+}
+
+items = {
+    'rock':  Item("rock",
+                     "Its just a rock try not to read to deep into it"),
+    "stick": Item("stick",
+                    "dunno maybe it will help")
 }
 
 room['outside'].n_to = room['foyer']
@@ -43,7 +50,7 @@ def look_around():
 
 look_around()
 
-user = input("\n Options are: \n\n [n] - travel North \n [s] - travel South \n [e] - travel East \n [w] - travel West \n [q] - quit \n [get/take (item)] - pick up item \n [drop (item)] \n [i] - list current inventory \n [l] - look around \n\n What would you like to do: " )
+user = input("\n Options are: \n\n [n] - travel North \n [s] - travel South \n [e] - travel East \n [w] - travel West \n [q] - quit \n [get/take (item)] - pick up item \n [drop (item)] \n [i] - list current inventory \n [l] - look around \n [ex (item)] - examine item in the inventory \n\n What would you like to do: " )
 
 while not user == "q":
 
@@ -60,20 +67,27 @@ while not user == "q":
             if user_split[1] in player.current_room.items: 
                 player.current_room.remove_item(user_split[1])
                 player.take_item(user_split[1])
+                items[user_split[1]].on_take(user_split[1])
             else:
                 print(f"{user_split[1]} is not in this room")
         elif user_split[0] == "drop":
             if user_split[1] in player.inventory: 
                 player.current_room.add_item(user_split[1])
                 player.drop_item(user_split[1])
+                items[user_split[1]].on_drop(user_split[1])
             else: 
                 print(f"{user_split[1]} is not in your inventory")
+        elif user_split[0] == "ex":
+            if user_split[1] in player.inventory:
+                print(items[user_split[1]].examine(user_split[1]))
+            else:
+                print("This item is not in inventory")
         else:
             print("Invalid input")
     else:
         print("Invalid input")
 
 
-    user = input("\n Options are: \n\n [n] - travel North \n [s] - travel South \n [e] - travel East \n [w] - travel West \n [q] - quit \n [get/take (item)] - pick up item \n [drop (item)] \n [i] - list current inventory \n [l] - look around \n\n What would you like to do: " )
+    user = input("\n Options are: \n\n [n] - travel North \n [s] - travel South \n [e] - travel East \n [w] - travel West \n [q] - quit \n [get/take (item)] - pick up item \n [drop (item)] \n [i] - list current inventory \n [l] - look around \n [ex (item)] - examine item in the inventory \n\n What would you like to do: " )
 
 print("Game Ended thank you for playing")

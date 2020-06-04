@@ -13,8 +13,6 @@ class Player:
 
     def take_item(self, item):
         self.inventory.append(item)
-        print(f"You have picked up {item}")
 
     def drop_item(self, item):
         self.inventory.remove(item)
-        print(f"You have dropped {item}")
