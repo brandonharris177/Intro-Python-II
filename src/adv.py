@@ -25,7 +25,23 @@ items = {
     'rock':  Item("rock",
                      "Its just a rock try not to read to deep into it"),
     "stick": Item("stick",
-                    "dunno maybe it will help")
+                    "dunno maybe it will help, probably not"),
+    "clock": Item("clock", 
+                        "used to tell time"),
+    "telescope": Item("telescope", 
+                        "used for seeing far away"),
+    "flag": Item("flag", 
+                        "soneone put it there for a reson but you already took it so whateves"),
+    "quill": Item("quill", 
+                        "used to write"),
+    "club": Item("club", 
+                        "the stick kind no the dancing one"),
+    "candle": Item("candle", 
+                        "used for light in dark places"),
+    "chocolate_coins": Item("chocolate_coins", 
+                        "not quite real treasure and a little old"),
+    "foam_sword": Item("foam_sword", 
+                        "worth it"),
 }
 
 room['outside'].n_to = room['foyer']
