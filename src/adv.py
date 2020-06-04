@@ -21,25 +21,6 @@ chamber! Sadly, it has already been completely emptied by
 earlier adventurers. The only exit is to the south.""", ["chocolate_coins", "foam_sword"]),
 }
 
-# items = {
-#     'outside':  Room("Outside Cave Entrance",
-#                      "North of you, the cave mount beckons"),
-
-#     'foyer':    Room("Foyer", """Dim light filters in from the south. Dusty
-# passages run north and east."""),
-
-#     'overlook': Room("Grand Overlook", """A steep cliff appears before you, falling
-# into the darkness. Ahead to the north, a light flickers in
-# the distance, but there is no way across the chasm."""),
-
-#     'narrow':   Room("Narrow Passage", """The narrow passage bends here from west
-# to north. The smell of gold permeates the air."""),
-
-#     'treasure': Room("Treasure Chamber", """You've found the long-lost treasure
-# chamber! Sadly, it has already been completely emptied by
-# earlier adventurers. The only exit is to the south."""),
-# }
-
 room['outside'].n_to = room['foyer']
 room['foyer'].s_to = room['outside']
 room['foyer'].n_to = room['overlook']
@@ -62,7 +43,9 @@ room['treasure'].s_to = room['narrow']
 
 player = Player("Rick Sanchz", room['outside'], [])
 
-print(f"You find yourself in the {player.current_room.name} {player.current_room.description} looking around you see {player.current_room.items}")
+print(f"You find yourself in the {player.current_room.name} {player.current_room.description} looking around you see:")
+for item in range(len(player.current_room.items)):
+    print(f"a {player.current_room.items[item]}")
 
 user = input("\n Options are: \n\n [n] - north \n [s] - south \n [e] - east \n [w] - west \n [q] - quit \n [get/take (item)] - pick up item \n [drop (item)] \n [i] - list current inventory \n [l] - look around \n\n What would you like to do: " )
 
@@ -87,11 +70,16 @@ while not user == "q":
                 player.current_room.add_item(user_split[1])
                 player.drop_item(user_split[1])
         else:
-            print("invalid command")
+            print("Invalid input")
     else:
-        print("invalid input")
+        print("Invalid input")
     
-    print(f"You find yourself in the {player.current_room.name} {player.current_room.description} looking around you see {player.current_room.items}")
+    print(f"You find yourself in the {player.current_room.name} {player.current_room.description}")
+    if len(player.current_room.items):
+        print("looking around you you see:")
+        for item in range(len(player.current_room.items)):
+            print(f"a {player.current_room.items[item]}")
+
 
     user = input("\n Options are: \n\n [n] - north \n [s] - south \n [e] - east \n [w] - west \n [q] - quit \n [get/take (item)] - pick up item \n [drop (item)] \n [i] - list current inventory \n [l] - look around \n\n What would you like to do: " )
 
