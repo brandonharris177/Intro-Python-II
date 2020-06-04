@@ -39,7 +39,7 @@ room['treasure'].s_to = room['narrow']
 
 player = Player(room['outside'])
 
-print(f"you find yourself in the {player.current_room.name} {player.current_room.description} ")
+print(f"You find yourself in the {player.current_room.name} {player.current_room.description} ")
 
 user = input("\n Options for travel are: \n\n [n] - north \n [s] - south \n [e] - east \n [w] - west \n [q] - quit \n\n In what direction would you like to travel: " )
 
@@ -50,7 +50,7 @@ while not user == "q":
     else:
         print("invalid input")
     
-    print(f"you find yourself in the {player.current_room.name} {player.current_room.description} ")
+    print(f"You find yourself in the {player.current_room.name} {player.current_room.description} ")
 
     user = input("\n Options for travel are: \n\n [n] - north \n [s] - south \n [e] - east \n [w] - west \n [q] - quit \n\n In what direction would you like to travel: " )
 
