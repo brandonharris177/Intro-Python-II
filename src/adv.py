@@ -32,20 +32,30 @@ room['treasure'].s_to = room['narrow']
 
 player = Player("Rick Sanchz", room['outside'], [])
 
-print(f"You find yourself in the {player.current_room.name} {player.current_room.description} looking around you see:")
-for item in range(len(player.current_room.items)):
-    print(f"a {player.current_room.items[item]}")
+# print(f"You find yourself in the {player.current_room.name} {player.current_room.description} looking around you see:")
+# for item in range(len(player.current_room.items)):
+#     print(f"a {player.current_room.items[item]}")
 
-user = input("\n Options are: \n\n [n] - north \n [s] - south \n [e] - east \n [w] - west \n [q] - quit \n [get/take (item)] - pick up item \n [drop (item)] \n [i] - list current inventory \n [l] - look around \n\n What would you like to do: " )
+def look_around():
+    print(f"You find yourself in the {player.current_room.name} {player.current_room.description}")
+    if len(player.current_room.items):
+        print("looking around you you see:")
+        for item in range(len(player.current_room.items)):
+            print(f"a {player.current_room.items[item]}")
+
+look_around()
+
+user = input("\n Options are: \n\n [n] - travel North \n [s] - travel South \n [e] - travel East \n [w] - travel West \n [q] - quit \n [get/take (item)] - pick up item \n [drop (item)] \n [i] - list current inventory \n [l] - look around \n\n What would you like to do: " )
 
 while not user == "q":
 
     if user in ["n", "s", "e", "w"]:
         player.move(user)
+        look_around()
     elif user == "i":
         print(player.inventory)
     elif user == "l":
-        print(f"You look around and see")
+        look_around()
     elif len(user) > 2:
         user_split = user.split(" ")
         if user_split[0] == "get" or user_split[0] == "take":
@@ -64,14 +74,8 @@ while not user == "q":
             print("Invalid input")
     else:
         print("Invalid input")
-    
-    print(f"You find yourself in the {player.current_room.name} {player.current_room.description}")
-    if len(player.current_room.items):
-        print("looking around you you see:")
-        for item in range(len(player.current_room.items)):
-            print(f"a {player.current_room.items[item]}")
 
 
-    user = input("\n Options are: \n\n [n] - north \n [s] - south \n [e] - east \n [w] - west \n [q] - quit \n [get/take (item)] - pick up item \n [drop (item)] \n [i] - list current inventory \n [l] - look around \n\n What would you like to do: " )
+    user = input("\n Options are: \n\n [n] - travel North \n [s] - travel South \n [e] - travel East \n [w] - travel West \n [q] - quit \n [get/take (item)] - pick up item \n [drop (item)] \n [i] - list current inventory \n [l] - look around \n\n What would you like to do: " )
 
 print("Game Ended thank you for playing")
