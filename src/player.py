@@ -1,5 +1,3 @@
-# Add capability to add Items to the player's inventory. The inventory can also be a list of items "in" the player, similar to how Items can be in a Room.
-
 class Player:
     def __init__(self, name, current_room, inventory):
         self.name = name
@@ -15,8 +13,6 @@ class Player:
 
     def take_item(self, item):
         self.inventory.append(item)
-        print(f"You have picked up {item}")
 
     def drop_item(self, item):
         self.inventory.remove(item)
-        print(f"You have dropped {item}")

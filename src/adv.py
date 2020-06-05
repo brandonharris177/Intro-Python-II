@@ -1,6 +1,6 @@
+from item import Item
 from player import Player
 from room import Room
-from item import Item
 
 room = {
     'outside':  Room("Outside Cave Entrance",
@@ -21,24 +21,28 @@ chamber! Sadly, it has already been completely emptied by
 earlier adventurers. The only exit is to the south.""", ["chocolate_coins", "foam_sword"]),
 }
 
-# items = {
-#     'outside':  Room("Outside Cave Entrance",
-#                      "North of you, the cave mount beckons"),
-
-#     'foyer':    Room("Foyer", """Dim light filters in from the south. Dusty
-# passages run north and east."""),
-
-#     'overlook': Room("Grand Overlook", """A steep cliff appears before you, falling
-# into the darkness. Ahead to the north, a light flickers in
-# the distance, but there is no way across the chasm."""),
-
-#     'narrow':   Room("Narrow Passage", """The narrow passage bends here from west
-# to north. The smell of gold permeates the air."""),
-
-#     'treasure': Room("Treasure Chamber", """You've found the long-lost treasure
-# chamber! Sadly, it has already been completely emptied by
-# earlier adventurers. The only exit is to the south."""),
-# }
+items = {
+    'rock':  Item("rock",
+                     "Its just a rock try not to read to deep into it"),
+    "stick": Item("stick",
+                    "dunno maybe it will help, probably not"),
+    "clock": Item("clock", 
+                        "used to tell time"),
+    "telescope": Item("telescope", 
+                        "used for seeing far away"),
+    "flag": Item("flag", 
+                        "soneone put it there for a reson but you already took it so whateves"),
+    "quill": Item("quill", 
+                        "used to write"),
+    "club": Item("club", 
+                        "the stick kind no the dancing one"),
+    "candle": Item("candle", 
+                        "used for light in dark places"),
+    "chocolate_coins": Item("chocolate_coins", 
+                        "not quite real treasure and a little old"),
+    "foam_sword": Item("foam_sword", 
+                        "worth it"),
+}
 
 room['outside'].n_to = room['foyer']
 room['foyer'].s_to = room['outside']
@@ -49,50 +53,57 @@ room['narrow'].w_to = room['foyer']
 room['narrow'].n_to = room['treasure']
 room['treasure'].s_to = room['narrow']
 
-# Add functionality to the main loop that prints out all the items that are visible to the player when they are in that room.
+username = input("Welcome Hero please input your name: ")
 
-# Add a new type of sentence the parser can understand: two words.
-# Until now, the parser could just understand one sentence form:
-# verb
-# such as "n" or "q".
-# But now we want to add the form:
-# verb object
-# such as "take coins" or "drop sword".
-# Split the entered command and see if it has 1 or 2 words in it to determine if it's the first or second form.
+player = Player(username, room['outside'], [])
 
-player = Player("Rick Sanchz", room['outside'], [])
+def look_around():
+    print(f"You find yourself in the {player.current_room.name} {player.current_room.description}")
+    if len(player.current_room.items):
+        print("looking around you you see:")
+        for item in range(len(player.current_room.items)):
+            print(f"a {player.current_room.items[item]}")
 
-print(f"You find yourself in the {player.current_room.name} {player.current_room.description} looking around you see {player.current_room.items}")
+look_around()
 
-user = input("\n Options are: \n\n [n] - north \n [s] - south \n [e] - east \n [w] - west \n [q] - quit \n [get/take (item)] - pick up item \n [drop (item)] \n [i] - list current inventory \n [l] - look around \n\n What would you like to do: " )
+user = input("\n Options are: \n\n [n] - travel North \n [s] - travel South \n [e] - travel East \n [w] - travel West \n [q] - quit \n [get/take (item)] - pick up item \n [drop (item)] \n [i] - list current inventory \n [l] - look around \n [ex (item)] - examine item in the inventory \n\n What would you like to do: " )
 
 while not user == "q":
 
     if user in ["n", "s", "e", "w"]:
         player.move(user)
+        look_around()
     elif user == "i":
         print(player.inventory)
     elif user == "l":
-        print(f"You look around and see")
+        look_around()
     elif len(user) > 2:
         user_split = user.split(" ")
         if user_split[0] == "get" or user_split[0] == "take":
             if user_split[1] in player.current_room.items: 
                 player.current_room.remove_item(user_split[1])
                 player.take_item(user_split[1])
+                items[user_split[1]].on_take(user_split[1])
             else:
                 print(f"{user_split[1]} is not in this room")
         elif user_split[0] == "drop":
             if user_split[1] in player.inventory: 
                 player.current_room.add_item(user_split[1])
                 player.drop_item(user_split[1])
+                items[user_split[1]].on_drop(user_split[1])
+            else: 
+                print(f"{user_split[1]} is not in your inventory")
+        elif user_split[0] == "ex":
+            if user_split[1] in player.inventory:
+                print(items[user_split[1]].examine(user_split[1]))
+            else:
+                print("This item is not in inventory")
         else:
-            print("invalid command")
+            print("Invalid input")
     else:
-        print("invalid input")
-    
-    print(f"You find yourself in the {player.current_room.name} {player.current_room.description} looking around you see {player.current_room.items}")
+        print("Invalid input")
 
-    user = input("\n Options are: \n\n [n] - north \n [s] - south \n [e] - east \n [w] - west \n [q] - quit \n [get/take (item)] - pick up item \n [drop (item)] \n [i] - list current inventory \n [l] - look around \n\n What would you like to do: " )
+
+    user = input("\n Options are: \n\n [n] - travel North \n [s] - travel South \n [e] - travel East \n [w] - travel West \n [q] - quit \n [get/take (item)] - pick up item \n [drop (item)] \n [i] - list current inventory \n [l] - look around \n [ex (item)] - examine item in the inventory \n\n What would you like to do: " )
 
 print("Game Ended thank you for playing")
